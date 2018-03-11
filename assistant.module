@@ -1,0 +1,74 @@
+<?php
+
+/**
+ * @file
+ * Defines common functionality for ACC assistant.
+ */
+
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_toolbar().
+ */
+function assistant_toolbar() {
+  
+  $tabs = [];
+  $env = acc_get_environment();
+  
+  if ($env != 'dev' && $env != 'local') {
+    $tabs['git_info'] = [
+      '#type'   => 'toolbar_item',
+      'tab'     => [
+        '#type'       => 'link',
+        '#title'      => t('Release: @git', ['@git' => acc_get_git_state($env)]),
+        '#url'        => Url::fromRoute('<nolink>', []),
+        '#attributes' => [
+          'style' => 'display: block; padding-left: 10px; background-color: inherit; cursor: inherit; color: #fc0; font-weight: 100;',
+        ],
+      ],
+      '#weight' => 999999,
+      '#cache'  => [
+        'max-age' => 0,
+      ],
+    ];
+  }
+  
+  return $tabs;
+}
+
+/**
+ * Get current state of git.
+ *
+ * @param $env string with current environment
+ *
+ * @return string , can be local, dev, test, prod
+ */
+function acc_get_git_state($env) {
+  if ($env == 'dev' || $env == 'test' || $env == 'prod') {
+    $git = shell_exec("drush @accuchekde." . $env . " ac-environment-info accuchekde " . $env . " | grep vcs_path | awk  -F'/' '{print $2}'");
+  }
+  else {
+    $git = shell_exec("describe --tags --abbrev=0");
+    
+    if ($git === NULL) {
+      $git = shell_exec("git log -1 --pretty=format:'%s (%ci)' --abbrev-commit `git merge-base local-dev dev`");
+    };
+  }
+  return $git;
+}
+
+/**
+ * Get a current environment name.
+ *
+ * @return string, can be local, dev, test, prod
+ */
+function acc_get_environment() {
+  if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
+    return $_ENV['AH_SITE_ENVIRONMENT'];
+  }
+  else {
+    return 'local';
+  }
+}
+
+

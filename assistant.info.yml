@@ -1,0 +1,5 @@
+name: Assistant
+description: Contains service with Drupal generic helper methods.
+package: Custom
+type: module
+core: 8.x

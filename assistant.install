@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the assistant module.
+ */
+
+use Drupal\shortcut\Entity\Shortcut;
+
+/**
+ * Delete all shortcut entities
+ */
+function assistant_install() {
+  $q = \Drupal::service('entity.query');
+  $ids = $q->get('shortcut') ->execute();
+
+  foreach($ids as $id) {
+    $shortcut = Shortcut::load($id);
+    $shortcut->delete();
+  }
+}
