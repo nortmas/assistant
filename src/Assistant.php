@@ -182,8 +182,8 @@ class Assistant {
   /**
    * Make new format from an input format.
    *
-   * @param string $value
-   *   Input date.
+   * @param string|int|null $value
+   *   Input date can be string as a format, timestamp, or null.
    * @param string $format_in
    *   PHP date() type format for parsing the input.
    * @param string $format_out
@@ -192,10 +192,18 @@ class Assistant {
    * @return string
    *   Formatted date.
    */
-  public function formatFromFormat($value, $format_in, $format_out) {
-    $timezone = drupal_get_user_timezone();
-    $timestamp = DateTimePlus::createFromFormat($format_in, $value, $timezone)->getTimestamp();
-    return $this->dateFormatter->format($timestamp, $format_out);
+  public function formatFromFormat($value, $format_in = NULL, $format_out) {
+    $date = '';
+    if (!empty($value)) {
+      if (is_numeric($value) || $format_in === NULL) {
+        $date = $this->dateFormatter->format($value, $format_out);
+      }
+      else {
+        $timestamp = DateTimePlus::createFromFormat($format_in, $value)->getTimestamp();
+        $date = $this->dateFormatter->format($timestamp, $format_out);
+      }
+    }
+    return $date;
   }
 
   /**
