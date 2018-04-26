@@ -60,4 +60,23 @@ class TaxonomyTermTree {
       }
     }
   }
+  
+  /**
+   * Loads Hierarchy Options.
+   *
+   * @param string $vocabulary
+   *   Machine name
+   *
+   * @return array
+   */
+  public function getHierarchyOptions($vocabulary) {
+    $options = [];
+    $tree = $this->entityTypeManager->getStorage('taxonomy_term')->loadTree($vocabulary);
+    if ($tree) {
+      foreach ($tree as $tree_object) {
+        $options[$tree_object->tid] = str_repeat('--', $tree_object->depth) . $tree_object->name;
+      }
+    }
+    return $options;
+  }
 }
