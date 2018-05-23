@@ -41,10 +41,10 @@ function assistant_toolbar() {
  *
  * @param $env string with current environment
  *
- * @return string , can be local, dev, test, prod
+ * @return string , can be local, dev, stage, prod
  */
 function acc_get_git_state($env) {
-  if ($env == 'dev' || $env == 'test' || $env == 'prod') {
+  if ($env == 'dev' || $env == 'stage' || $env == 'prod') {
     $git = shell_exec("drush @accuchekde." . $env . " ac-environment-info accuchekde " . $env . " | grep vcs_path | awk  -F'/' '{print $2}'");
   }
   else {
@@ -60,7 +60,7 @@ function acc_get_git_state($env) {
 /**
  * Get a current environment name.
  *
- * @return string, can be local, dev, test, prod
+ * @return string, can be local, dev, stage, prod
  */
 function acc_get_environment() {
   if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
