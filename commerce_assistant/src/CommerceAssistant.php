@@ -3,7 +3,6 @@
 namespace Drupal\assistant;
 
 use Drupal\Core\Cache\CacheBackendInterface;
-use Drupal\Core\Database\Database;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Path\CurrentPathStack;
 use Drupal\Core\Routing\CurrentRouteMatch;
@@ -21,22 +20,16 @@ use Drupal\commerce_cart\CartManagerInterface;
 class CommerceAssistant {
 
   /**
-   * The config factory service.
-   *
    * @var \Drupal\Core\Path\CurrentPathStack
    */
   protected $currentPath;
 
   /**
-   * The cart manager.
-   *
    * @var \Drupal\commerce_cart\CartManagerInterface
    */
   protected $cartManager;
 
   /**
-   * The cart provider.
-   *
    * @var \Drupal\commerce_cart\CartProviderInterface
    */
   protected $cartProvider;
@@ -60,7 +53,6 @@ class CommerceAssistant {
    * Constructor.
    *
    * @param \Drupal\Core\Path\CurrentPathStack $current_path
-   *   Represents the current path for the current request.
    * @param \Drupal\commerce_cart\CartManagerInterface $cart_manager
    * @param \Drupal\commerce_cart\CartProviderInterface $cart_provider
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_manager

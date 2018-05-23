@@ -1,0 +1,4 @@
+services:
+  commerce_assistant:
+      class: Drupal\assistant\CommerceAssistant
+      arguments: ['@path.current', '@commerce_cart.cart_manager', '@commerce_cart.cart_provider', '@entity_type.manager', '@current_route_match', '@cache.default']

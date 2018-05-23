@@ -1,11 +1,7 @@
 services:
   assistant:
     class: Drupal\assistant\Assistant
-    arguments: ['@path.current', '@commerce_cart.cart_manager', '@commerce_cart.cart_provider', '@entity_type.manager', '@date.formatter', '@renderer', '@image.factory']
-
-  commerce_assistant:
-      class: Drupal\assistant\CommerceAssistant
-      arguments: ['@path.current', '@commerce_cart.cart_manager', '@commerce_cart.cart_provider', '@entity_type.manager', '@current_route_match', '@cache.default']
+    arguments: ['@path.current', '@entity_type.manager', '@date.formatter', '@renderer', '@image.factory']
 
   taxonomy_term_tree:
     class: Drupal\assistant\TaxonomyTermTree

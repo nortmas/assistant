@@ -21,25 +21,9 @@ use Drupal\file\Entity\File;
 class Assistant {
 
   /**
-   * The config factory service.
-   *
    * @var \Drupal\Core\Path\CurrentPathStack
    */
   protected $currentPath;
-
-  /**
-   * The cart manager.
-   *
-   * @var \Drupal\commerce_cart\CartManagerInterface
-   */
-  protected $cartManager;
-
-  /**
-   * The cart provider.
-   *
-   * @var \Drupal\commerce_cart\CartProviderInterface
-   */
-  protected $cartProvider;
 
   /**
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
@@ -65,18 +49,13 @@ class Assistant {
    * Constructor.
    *
    * @param \Drupal\Core\Path\CurrentPathStack $current_path
-   *   Represents the current path for the current request.
-   * @param \Drupal\commerce_cart\CartManagerInterface $cart_manager
-   * @param \Drupal\commerce_cart\CartProviderInterface $cart_provider
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_manager
    * @param \Drupal\Core\Datetime\DateFormatter $date_formatter
    * @param \Drupal\Core\Render\Renderer $renderer
    * @param \Drupal\Core\Image\ImageFactory $image_factory
    */
-  public function __construct(CurrentPathStack $current_path, CartManagerInterface $cart_manager, CartProviderInterface $cart_provider, EntityTypeManagerInterface $entity_manager, DateFormatter $date_formatter, Renderer $renderer, ImageFactory $image_factory) {
+  public function __construct(CurrentPathStack $current_path, EntityTypeManagerInterface $entity_manager, DateFormatter $date_formatter, Renderer $renderer, ImageFactory $image_factory) {
     $this->currentPath = $current_path;
-    $this->cartManager = $cart_manager;
-    $this->cartProvider = $cart_provider;
     $this->entityManager = $entity_manager;
     $this->dateFormatter = $date_formatter;
     $this->renderer = $renderer;

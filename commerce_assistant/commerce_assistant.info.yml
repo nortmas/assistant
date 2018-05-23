@@ -1,0 +1,8 @@
+name: 'Commerce Assistant'
+type: module
+description: 'The module contains a toolset for the developers which is related to the commerce module features.'
+core: 8.x
+package: Assistant
+
+dependencies:
+  - assistant
